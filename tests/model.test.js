@@ -13,8 +13,9 @@ test('model structure', () => {
       }),
       record: expect.any(Function),
       all: expect.any(Function),
-      find: expect.anything(),
-      update: expect.anything(),
+      find: expect.any(Function),
+      update: expect.any(Function),
+      delete: expect.any(Function),
     })
   )
 })
@@ -134,3 +135,24 @@ describe('update()', () => {
     expect(model.update(3, {})).toBe(false)
   })
 })
+
+describe('delete()', () => {
+  const writers = [{ id: 1, name: 'J. D. Salinger' }, { id: 2, name: 'J. K. Toole' }]
+  let model
+
+  beforeEach(() => {
+    model = new Model()
+    model.$collection = JSON.parse(JSON.stringify(writers))
+  })
+
+  test('remove entry by id', () => {
+    model.delete(1)
+
+    expect(model.$collection).toHaveLength(1)
+  })
+
+  test('return false if no entry matches', () => {
+    expect(model.delete(3, {})).toBe(false)
+  })
+})
+

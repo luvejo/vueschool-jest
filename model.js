@@ -50,4 +50,14 @@ export default class Model {
       Object.assign(this.$collection[index], data)
     )
   }
+
+  delete(id) {
+    const index = this.$collection.findIndex(
+      entry => entry[this.$options.primaryKey] === id)
+
+    if (index < 0)
+      return false
+
+    this.$collection.splice(index, 1)
+  }
 }
