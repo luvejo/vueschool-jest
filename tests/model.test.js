@@ -43,11 +43,14 @@ describe('record()', () => {
 
 describe('all()', () => {
   const writers = [{ name: 'J. D. Salinger' }, { name: 'J. K. Toole' }]
+  let model
+
+  beforeEach(() => {
+    model = new Model()
+    model.$collection = writers
+  })
 
   test('retrieves $collection value', () => {
-    const model = new Model()
-    model.$collection = writers
-
     expect(model.all()).toEqual(writers)
 
     model.$collection = []
@@ -56,8 +59,6 @@ describe('all()', () => {
   })
 
   test('original data stays intact', () => {
-    const model = new Model()
-    model.$collection = writers
     const data = model.all()
     data[0].name = 'David Sedaris'
 
@@ -68,18 +69,18 @@ describe('all()', () => {
 
 describe('find()', () => {
   const writers = [{ id: 1, name: 'J. D. Salinger' }, { id: 2, name: 'J. K. Toole' }]
+  let model
+
+  beforeEach(() => {
+    model = new Model()
+    model.$collection = writers
+  })
 
   test('returns null if nothing matches', () => {
-    const model = new Model()
-    model.$collection = writers
-
     expect(model.find(3)).toEqual(null)
   })
 
   test('retrieves a matching entry', () => {
-    const model = new Model()
-    model.$collection = writers
-
     expect(model.find(1)).toEqual(writers[0])
   })
 })
