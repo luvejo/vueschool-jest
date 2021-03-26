@@ -8,12 +8,31 @@ test('model structure', () => {
   expect(new Model).toEqual(
     expect.objectContaining({
       $collection: expect.any(Array),
+      $options: expect.objectContaining({
+        primaryKey: 'id'
+      }),
       record: expect.any(Function),
       all: expect.any(Function),
       find: expect.anything(),
       update: expect.anything(),
     })
   )
+})
+
+describe('constructor()', () => {
+  const writers = [{ id: 1, name: 'J. D. Salinger' }]
+
+  test('can define the primary key', () => {
+    const model = new Model({
+      primaryKey: 'name'
+    })
+    expect(model.$options.primaryKey).toBe('name')
+  })
+
+  test('set $collection with passed data', () => {
+    const model = new Model({ data: writers })
+    expect(model.$collection).toEqual(writers)
+  })
 })
 
 describe('record()', () => {

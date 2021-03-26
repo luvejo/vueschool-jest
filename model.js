@@ -1,6 +1,12 @@
 export default class Model {
-  constructor(data = []) {
+  constructor(options = {}) {
+    const { data = [] } = options
+    delete options.data
+
     this.$collection = []
+
+    const defaultOptions = { primaryKey: 'id' }
+    this.$options = Object.assign(defaultOptions, options)
 
     if (data) {
       this.record(data)
@@ -9,8 +15,8 @@ export default class Model {
 
   record(data) {
     const normalizedData = data.map(entry => {
-      if (!entry.id)
-        entry.id = Date.now()
+      if (!entry[this.$options.primaryKey])
+        entry[this.$options.primaryKey] = Date.now()
       return entry
     })
     this.$collection.push(...normalizedData)
@@ -23,7 +29,7 @@ export default class Model {
 
   find(id) {
     const match = this.$collection.find(
-      entry => entry.id === id)
+      entry => entry[this.$options.primaryKey] === id)
 
     if (match)
       return Object.assign({}, match)
@@ -33,7 +39,7 @@ export default class Model {
 
   update(id, data) {
     const index = this.$collection.findIndex(
-      entry => entry.id === id)
+      entry => entry[this.$options.primaryKey] === id)
 
     if (index < 0)
       return false
