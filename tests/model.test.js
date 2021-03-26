@@ -110,5 +110,7 @@ describe('update()', () => {
     )
   })
 
-  test('return false if no entry matches', () => { })
+  test('return false if no entry matches', () => {
+    expect(model.update(3, {})).toBe(false)
+  })
 })

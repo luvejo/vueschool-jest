@@ -35,6 +35,9 @@ export default class Model {
     const index = this.$collection.findIndex(
       entry => entry.id === id)
 
+    if (index < 0)
+      return false
+
     this.$collection.splice(
       index,
       1,
