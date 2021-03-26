@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User creates snapshot 1`] = `
+Object {
+  "age": 42,
+  "job": "inventor",
+  "name": "Tony Tinkerton",
+}
+`;

@@ -1,0 +1,15 @@
+{
+  "name": "vueschool-jest",
+  "version": "1.0.0",
+  "description": "Code from Jest Course",
+  "scripts": {
+    "test": "jest"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.12",
+    "babel-jest": "^26.6.3",
+    "jest": "^26.6.3"
+  }
+}
