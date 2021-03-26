@@ -91,7 +91,7 @@ describe('update()', () => {
 
   beforeEach(() => {
     model = new Model()
-    model.$collection = writers
+    model.$collection = JSON.parse(JSON.stringify(writers))
   })
 
   test('modify entry by id', () => {
@@ -102,7 +102,12 @@ describe('update()', () => {
 
   test('extend entry by id', () => {
     model.update(1, { gender: 'male' })
-    expect()
+    expect(model.$collection[0]).toEqual(
+      expect.objectContaining({
+        name: 'J. D. Salinger',
+        gender: 'male'
+      })
+    )
   })
 
   test('return false if no entry matches', () => { })
